@@ -7,30 +7,31 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-// SmartContract defines the Certificate Issuance contract
+// SmartContract defines the Medical Records contract
 type SmartContract struct {
 	contractapi.Contract
 }
 
-// Certificate represents a course completion certificate
-type Certificate struct {
-	CertID      string `json:"certID"`
-	StudentName string `json:"studentName"`
-	CourseName  string `json:"courseName"`
+// Patient represents a patient record in the ledger
+type Patient struct {
+	PatientID      string `json:"patientID"`
+	Name           string `json:"name"`
+	Age            int    `json:"age"`
+	MedicalHistory string `json:"medicalHistory"`
 }
 
-// IssueCertificate creates a new certificate record
-func (s *SmartContract) IssueCertificate(ctx contractapi.TransactionContextInterface, certID string, studentName string, courseName string) error {
+// RegisterPatient creates a new patient record
+func (s *SmartContract) RegisterPatient(ctx contractapi.TransactionContextInterface, patientID string, name string, age int, medicalHistory string) error {
 	
 }
 
-// VerifyCertificate checks if a certificate exists
-func (s *SmartContract) VerifyCertificate(ctx contractapi.TransactionContextInterface, certID string) (bool, error) {
+// UpdateMedicalHistory appends new history to a patient's record
+func (s *SmartContract) UpdateMedicalHistory(ctx contractapi.TransactionContextInterface, patientID string, newHistory string) error {
 	
 }
 
-// GetCertificate retrieves the details of a certificate
-func (s *SmartContract) GetCertificate(ctx contractapi.TransactionContextInterface, certID string) (*Certificate, error) {
+// GetPatientDetails retrieves the details of a patient
+func (s *SmartContract) GetPatientDetails(ctx contractapi.TransactionContextInterface, patientID string) (*Patient, error) {
 	
 }
 
@@ -38,11 +39,11 @@ func (s *SmartContract) GetCertificate(ctx contractapi.TransactionContextInterfa
 func main() {
 	chaincode, err := contractapi.NewChaincode(&SmartContract{})
 	if err != nil {
-		fmt.Printf("Error creating certificate issuance chaincode: %s", err)
+		fmt.Printf("Error creating medical records chaincode: %s", err)
 		return
 	}
 
 	if err := chaincode.Start(); err != nil {
-		fmt.Printf("Error starting certificate issuance chaincode: %s", err)
+		fmt.Printf("Error starting medical records chaincode: %s", err)
 	}
 }
